@@ -1,8 +1,9 @@
+require("dotenv").config()
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const router = require('./routes/users');
-
+const Base_URL= process.env.Base_URL
 const app = express();
 
 app.use(express.json());
@@ -10,7 +11,7 @@ app.use(cors());
 
 app.use("/", router);
 
-mongoose.connect('mongodb://localhost:27017/auth',  {
+mongoose.connect(Base_URL,  {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }
