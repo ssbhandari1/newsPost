@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import {useCookies} from 'react-cookie' 
 import { toast } from 'react-toastify';
-
+const Base_URL='https://news-post.onrender.com'
 
 const LoginPage = () => {
 const navigate=useNavigate()
@@ -19,7 +19,7 @@ const[_,setCookies]=useCookies(['access_token'])
 
   const handleLogIn=async()=>{
     try {
-    const response=await axios.post('http://localhost:4000/login' , {
+    const response=await axios.post(`${Base_URL}/login` , {
       email,password
     })
     console.log(response.data)

@@ -4,6 +4,7 @@ import { Avatar, Box, Button, CardMedia, InputLabel, Paper, Stack, TextField, Ty
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+const Base_URL='https://news-post.onrender.com'
 
 
 const RegisterPage = () => {
@@ -14,7 +15,7 @@ const RegisterPage = () => {
 
     const handleRegister=async()=>{
       try {
-  await axios.post('http://localhost:4000/register',{
+  await axios.post(`${Base_URL}/register`,{
     email,password
      })
      toast.success('Registration complette')
