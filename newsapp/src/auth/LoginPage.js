@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Box, Button, CardMedia, Paper, Stack, TextField, Typography } from '@mui/material'
 import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
@@ -12,8 +12,8 @@ const navigate=useNavigate()
  
   const[email,setEmail]=useState('')
   const[password,setPassword]=useState('')
-const[_,setCookies]=useCookies(['access_token'])
-
+const[cookies,setCookies]=useCookies(['access_token'])
+console.log(cookies)
 
 
 

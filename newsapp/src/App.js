@@ -10,14 +10,14 @@ import NewsCatogory from './pages/NewsCatogory';
 import LoginPage from './auth/LoginPage';
 import RegisterPage from './auth/RegisterPage';
 import SaveData from './pages/SaveData';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   const dispatch=useDispatch()
 
 useEffect(()=>{
   dispatch(fetchNewsData())
-},[])
+},[dispatch])
   
   return (
  <Box sx={{width:'100%',height:'100%',backgroundColor:'rgba(0,0,0,0.2)'}}>

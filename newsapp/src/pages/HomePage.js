@@ -1,10 +1,9 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
-import zIndex from '@mui/material/styles/zIndex';
-import axios from 'axios';
-import { fetchNewsData, saveNewsData } from '../slice/newsDataslice';
+
+import {  saveNewsData } from '../slice/newsDataslice';
 import { toast } from 'react-toastify';
 
 //c8511c04e5a74500b173a6582c0bafba
