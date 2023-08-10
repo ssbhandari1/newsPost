@@ -30,7 +30,7 @@ const[cookies,setCookies]=useCookies(['access_token'])
 const saveData=useSelector((state)=>state.data.saveData)
 console.log(saveData)
 const userId=window.localStorage.getItem('userId')
-
+console.log(userId)
 
   const[toggle,setToggle]=useState(false)
 
