@@ -178,7 +178,7 @@ console.log(userId)
               <Box sx={{ flexGrow: 0 }}>
 
                 {
-                  !cookies.access_token ? (<Button variant='outline' onClick={()=>{navigate('/login')}}> Log in</Button>):( <Tooltip title="Open settings">
+                  !userId ? (<Button variant='outline' onClick={()=>{navigate('/login')}}> Log in</Button>):( <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUsermenu} sx={{ p: 0 }}>
                     <Avatar alt="Remy Sharp" src='./assets/profile.jpg'/>
                   </IconButton>

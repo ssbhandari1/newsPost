@@ -17,6 +17,8 @@ const HomePage = () => {
 
 
   const [savedItem, setSavedItem] = useState([])
+
+  console.log(savedItem)
   const userId = window.localStorage.getItem('userId')
   // const saveData=useSelector((state)=>state.data.saveData)
 
@@ -28,8 +30,14 @@ const HomePage = () => {
 
     try {
       const res = await axios.post(`${Base_URL}/news`, selectedItem)
-      console.log(res.data.title)
-      toast.success(' Saved Successfully')
+      if(res.data.message==='Item Already Saved'){
+        toast.error('Item Already Saved')
+      }else{
+        toast.success(' Saved Successfully')
+        setSavedItem(res.data.map((item)=>item.title))
+      }
+  
+  
     } catch (error) {
       console.log(error)
       toast.error(error)
@@ -43,8 +51,8 @@ const HomePage = () => {
     const fetchSavedNews = async () => {
       try {
         const res = await axios.get(`${Base_URL}/news`)
-        console.log(res)
-        setSavedItem(res.data)
+        // console.log(res.data)
+        setSavedItem(res.data.map((item)=>item.title))
       } catch (error) {
         console.log(error)
       }
@@ -157,7 +165,7 @@ const HomePage = () => {
                       </Typography>
                       <CardActions sx={{ position: 'absolute', right: '0', bottom: isSmallScreen ? '0' : '.6rem' }} >
                         <IconButton aria-label="add to favorites" title='save' onClick={() => handleNewssave(item.title)}>
-                          <FavoriteIcon sx={{}} />
+                          <FavoriteIcon sx={{color:savedItem.includes(item.title)&&'red'}} />
                         </IconButton>
                       </CardActions>
                     </CardContent>

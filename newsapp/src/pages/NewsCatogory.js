@@ -1,5 +1,5 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -7,6 +7,7 @@ import axios from 'axios';
 const Base_URL = 'http://localhost:4000'
 const NewsCatogory = () => {
 
+  const [savedItem, setSavedItem] = useState([])
 
 
   const theme = useTheme();
@@ -16,12 +17,21 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.down('600'));
     const userId=window.localStorage.getItem('userId')
     
     const handleNewssave = async (id) => {
+      if(!userId){
+        return toast.info('Please Log in First')
+      }
       const selectedItem = newsCatagory?.articles.find((item, index) => item.title === id)
   
       try {
         const res = await axios.post(`${Base_URL}/news`, selectedItem)
-        console.log(res.data.title)
-        toast.success(' Saved Successfully')
+        if(res.data.message==='Item Already Saved'){
+          toast.error('Item Already Saved')
+        }else{
+          toast.success(' Saved Successfully')
+          setSavedItem(res.data.map((item)=>item.title))
+        }
+    
+    
       } catch (error) {
         console.log(error)
         toast.error(error)
@@ -29,6 +39,21 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.down('600'));
       }
   
     }
+
+    useEffect(() => {
+      const fetchSavedNews = async () => {
+        try {
+          const res = await axios.get(`${Base_URL}/news`)
+          // console.log(res.data)
+          setSavedItem(res.data.map((item)=>item.title))
+        } catch (error) {
+          console.log(error)
+        }
+  
+      }
+      fetchSavedNews()
+    }, [])
+  
 
   return (
     <Box sx={{width:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
@@ -57,7 +82,7 @@ const isSmallScreen = useMediaQuery(theme.breakpoints.down('600'));
                     </Typography>
                     <CardActions sx={{position:'absolute',right:'0',bottom:isSmallScreen ? '0':'.6rem'}} >
                     <IconButton aria-label="add to favorites" title='save' onClick={()=>handleNewssave(item.title)}>
-                      <FavoriteIcon/>
+                    <FavoriteIcon sx={{color:savedItem.includes(item.title)&&'red'}} />
                     </IconButton>
                     </CardActions>
                   </CardContent>
