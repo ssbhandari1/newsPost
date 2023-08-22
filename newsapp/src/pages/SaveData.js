@@ -1,20 +1,35 @@
 import { Box, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Paper, Typography, useMediaQuery, useTheme } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useSelector } from 'react-redux';
-
+import axios from 'axios';
+const Base_URL='http://localhost:4000'
 const SaveData = () => {
   const theme = useTheme();
 const isSmallScreen = useMediaQuery(theme.breakpoints.down('600'));
-    const saveData=useSelector((state)=>state.data.saveData)
-    console.log(saveData)
+  const[savedData,setSavedData]=useState([])
+    console.log(savedData)
+
+
+    useEffect(()=>{
+      const fetchSavedNews=async()=>{
+        try {
+          const res =await axios.get(`${Base_URL}/news`)
+          console.log(res)
+          setSavedData(res.data)
+        } catch (error) {
+          console.log(error)
+        }
+      
+      }
+      fetchSavedNews()
+      },[])
 
   return (
     <Box sx={{width:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>
 
 <Grid container sx={{width:'90%',marginTop:'1rem',}}>
  {
-      saveData && saveData.map((item,index)=>{
+      savedData.length>0 && savedData.map((item,index)=>{
         return(
             <Grid key={index} item xs={12} sx={{backgroundColor:'',height:'35vh',marginTop:'1rem',padding:''}}>
             <Paper elevation={20} sx={{width:'100%',height:'100%'}} >

@@ -2,48 +2,33 @@ import { Box, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Paper
 import React from 'react'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useDispatch, useSelector } from 'react-redux';
-import { saveNewsData } from '../slice/newsDataslice';
 import { toast } from 'react-toastify';
-
+import axios from 'axios';
+const Base_URL = 'http://localhost:4000'
 const NewsCatogory = () => {
 
 
-const dispatch=useDispatch()
 
   const theme = useTheme();
 const isSmallScreen = useMediaQuery(theme.breakpoints.down('600'));
     const newsCatagory=useSelector((state)=>state.data.newsType)
     console.log(newsCatagory?.articles)
     const userId=window.localStorage.getItem('userId')
-    const saveData=useSelector((state)=>state.data.saveData)
     
-    const handleNewssave=async(id)=>{
- 
-      if(userId){
-        try {
-          const itemInCart=saveData.find((item,index)=>item.title===id)
-       
-      
-          if(!itemInCart){
-          const selectedItem= newsCatagory?.articles.find((item,index)=>item.title===id)
-          if(selectedItem){
-            dispatch(saveNewsData(selectedItem))
-           toast.success('Select Item Saved')
-          }
-          }else{
-            toast.error('Item already in saved!');
-          }
-        } catch (error) {
-          toast.error(error)
-        }
-      }else{
-        toast.info('Please login first ')
+    const handleNewssave = async (id) => {
+      const selectedItem = newsCatagory?.articles.find((item, index) => item.title === id)
+  
+      try {
+        const res = await axios.post(`${Base_URL}/news`, selectedItem)
+        console.log(res.data.title)
+        toast.success(' Saved Successfully')
+      } catch (error) {
+        console.log(error)
+        toast.error(error)
+  
       }
-      
-       
-      
-       
-      }
+  
+    }
 
   return (
     <Box sx={{width:'100%',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center'}}>

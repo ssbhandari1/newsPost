@@ -4,8 +4,8 @@ import {  Box, Button, CardMedia,  Paper, Stack, TextField, Typography } from '@
 import { NavLink, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-const Base_URL='https://news-post.onrender.com'
-
+// const Base_URL='https://news-post.onrender.com'
+const Base_URL='http://localhost:4000'
 
 const RegisterPage = () => {
   const navigate=useNavigate()
@@ -21,6 +21,7 @@ const RegisterPage = () => {
      toast.success('Registration complette')
   navigate('/login')
       } catch (error) {
+        console.log(error)
         toast.error(error)
       }
     }

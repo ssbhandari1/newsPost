@@ -12,6 +12,9 @@ import RegisterPage from './auth/RegisterPage';
 import SaveData from './pages/SaveData';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+const Base_URL='http://localhost:4000'
+
 const App = () => {
   const dispatch=useDispatch()
 
@@ -19,6 +22,8 @@ useEffect(()=>{
   dispatch(fetchNewsData())
 },[dispatch])
   
+
+
   return (
  <Box sx={{width:'100%',height:'100%',backgroundColor:'rgba(0,0,0,0.2)'}}>
 <ToastContainer/>

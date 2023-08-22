@@ -71,11 +71,9 @@ console.log(userId)
     
 
     const handleNavigatet=()=>{
-      if(saveData.length){
+   
         navigate('/savedata')
-      }else{
-        toast.info('Please saved Item first')
-      }
+  
     }
       return (
         <AppBar position="static" sx={{width:'100%',background: 'linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(3,7,225,1) 100%)'

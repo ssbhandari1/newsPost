@@ -5,7 +5,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import {useCookies} from 'react-cookie' 
 import { toast } from 'react-toastify';
-const Base_URL='https://news-post.onrender.com'
+// const Base_URL='https://news-post.onrender.com'
+const Base_URL='http://localhost:4000'
 
 const LoginPage = () => {
 const navigate=useNavigate()
